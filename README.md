@@ -41,7 +41,7 @@ Those belong next to the code — not **inside** it. `docpair.nvim` gives you th
 ```lua
 -- in: ~/.config/nvim/lua/plugins/docpair.lua
 return {
-  "<your-gh-user>/docpair.nvim",
+  "isticusi/docpair.nvim",
   main = "docpair",
   lazy = false,                -- eager so :Documented has filename completion immediately
   opts = { info_filetype = "markdown" },
