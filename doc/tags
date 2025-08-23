@@ -1,0 +1,15 @@
+:Documented	docpair.txt	/*:Documented*
+:Documented	docpair.txt	/*:Documented*
+basename	docpair.txt	/*basename*
+docpair	docpair.txt	/*docpair*
+docpair-command	docpair.txt	/*docpair-command*
+docpair-contents	docpair.txt	/*docpair-contents*
+docpair-helptags	docpair.txt	/*docpair-helptags*
+docpair-info_filetype	docpair.txt	/*docpair-info_filetype*
+docpair-install	docpair.txt	/*docpair-install*
+docpair-notes	docpair.txt	/*docpair-notes*
+docpair-options	docpair.txt	/*docpair-options*
+docpair-overview	docpair.txt	/*docpair-overview*
+docpair-setup	docpair.txt	/*docpair-setup*
+docpair-usage	docpair.txt	/*docpair-usage*
+docpair.nvim	docpair.txt	/*docpair.nvim*

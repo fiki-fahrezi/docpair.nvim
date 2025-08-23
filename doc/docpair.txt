@@ -1,0 +1,138 @@
+*docpair.nvim* *docpair*                                      Last change: 2025-08-23
+
+docpair.nvim — Pair a source file with a sidecar notes file, kept line-synchronous.
+
+CONTENTS *docpair-contents*
+  1. Overview                     |docpair-overview|
+  2. Installation                 |docpair-install|
+  3. Setup & Configuration        |docpair-setup|
+  4. Command                      |:Documented|
+  5. Options                      |docpair-options|
+  6. Usage & Examples             |docpair-usage|
+  7. Notes & Limitations          |docpair-notes|
+  8. Helptags                     |docpair-helptags|
+
+-------------------------------------------------------------------------------
+OVERVIEW *docpair-overview*
+
+docpair is intentionally simple: it opens your source on the left and a
+matching “sidecar” notes file on the right, stored under:
+    <dir-of-source>/.documented/
+
+The two windows are *line-synchronous*: scrolling or moving the cursor in one
+keeps the other aligned by line. There is no AST, no sections, no magic — just
+clean 1:1 line correspondence.
+
+Why this design?
+- Keep your *source pristine* — no inline comments or big blocks of prose.
+- Write explanations, checklists, or commentary next to code *without clutter*.
+- Excellent for *learning APIs*: explain each line/step while seeing the code.
+- Great for reviews, workshops, and teaching material.
+
+-------------------------------------------------------------------------------
+INSTALLATION *docpair-install*
+
+With lazy.nvim (local path example):
+>
+  return {
+    dir = vim.fn.stdpath("config") .. "/scripts/docpair",
+    main = "docpair",
+    lazy = false,  -- eager so :Documented has file completion immediately
+    opts = { info_filetype = "markdown" },
+    config = true,
+  }
+<
+
+From GitHub, replace `dir = ...` with `"user/docpair.nvim"`.
+
+-------------------------------------------------------------------------------
+SETUP & CONFIGURATION *docpair-setup*
+
+Lua:
+>
+  require("docpair").setup({
+    info_filetype = "markdown",  -- filetype for the right-hand notes buffer
+  })
+<
+
+-------------------------------------------------------------------------------
+COMMAND *docpair-command* *:Documented*
+
+*:Documented* {file} [infofile][!]
+    Open {file} on the left and its notes on the right.
+
+    Placement:
+      - Notes live in <dir-of-{file}>/.documented/
+      - With no [infofile], the name is <basename({file})>_info
+      - With [infofile], only its *basename* is used; it is still placed
+        under the .documented/ folder.
+
+    Behavior:
+      - Creates the notes file if missing.
+      - Pads the notes file with empty lines to match the source’s line count,
+        so line N in source corresponds to line N in notes.
+      - Sets scroll & cursor synchronization between the two windows.
+
+    Opening:
+      - With [!], use the current tab (close other windows) before vsplitting.
+      - Without [!], open in a new tab.
+
+    Completion:
+      - {file} supports filename completion.
+
+-------------------------------------------------------------------------------
+OPTIONS *docpair-options*
+
+*docpair-info_filetype*
+    String. Filetype used for the right-hand notes buffer.
+    Default: "markdown"
+>
+  require("docpair").setup({ info_filetype = "markdown" })
+<
+
+-------------------------------------------------------------------------------
+USAGE & EXAMPLES *docpair-usage*
+
+Basic:
+>
+  :Documented src/main.c
+<
+Custom notes filename (still placed in .documented/):
+>
+  :Documented src/main.c main_notes.md
+<
+Stay in the current tab:
+>
+  :Documented! README.md
+<
+Suggested workflows:
+  - API learning: annotate each line/step while trying calls and options.
+  - Code reading: summarize intent per function or block, line-aligned.
+  - Teaching/Demos: keep exercises on the left, hints/answers on the right.
+  - Reviews: jot down questions or to-dos without touching the source.
+
+-------------------------------------------------------------------------------
+NOTES & LIMITATIONS *docpair-notes*
+
+- Intentional minimalism: only line-level synchronization (scrollbind/cursorbind).
+  No structural mapping, symbols, or live parsing.
+- Padding happens when you run :Documented. If the source grows later, re-run
+  the command to extend the notes file’s line count.
+- Wrapping and folds are disabled in the notes window to keep alignment stable.
+- Notes are regular files under .documented/ — easy to version-control.
+
+-------------------------------------------------------------------------------
+HELPTAGS *docpair-helptags*
+
+If this help file isn’t found by :help yet, generate helptags for your doc dir:
+>
+  :helptags {path-to-your-plugin}/doc
+<
+Then:
+>
+  :help docpair
+  :help :Documented
+<
+
+vim:tw=78:ts=8:ft=help:norl:
+
