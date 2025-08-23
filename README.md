@@ -4,6 +4,10 @@ Keep your source **pristine**. Put your thoughts, checklists, and long‑form ex
 
 `docpair.nvim` opens your source on the left and a matching notes file on the right. Each line *N* in the source corresponds to line *N* in your notes — simple, predictable, and perfect for learning APIs, reviewing code, teaching, or documenting thought processes **without** cluttering the source.
 
+
+![docpair.nvim – line-synchronous sidecar notes](./pic.png)
+
+
 ---
 
 ## Why this exists
